@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taku.me</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* CSS untuk background seluruh halaman */
+        body {
+            background-image: url('images/sona.jpg'); /* Pastikan 'sona.jpg' berada di direktori yang benar */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }  
+
+        /* Styling untuk kartu */
+        .card {
+            background-color: rgba(255, 255, 255, 0.9); /* Latar belakang semi-transparan putih */
+            transition: background-color 0.3s ease; /* Transisi untuk efek hover */
+        }
+
+        /* Styling untuk bagian keterangan (card-body) */
+        .card-body {
+            background-color: #000; /* Latar belakang hitam untuk keterangan */
+            color: #fff; /* Warna teks putih */
+        }
+
+        /* Efek hover untuk kartu */
+        .card:hover {
+            background-color: red; /* Ubah latar belakang menjadi merah saat hover */
+            color: #fff; /* Tetap putih untuk teks saat hover */
+        }
+
+        /* Ubah warna judul anime menjadi merah */
+        .card-title {
+            color: red; /* Warna teks merah */
+        }
+
+        /* Ubah warna teks section-title menjadi putih */
+        .section-title {
+            text-align: center;
+            margin-top: 2em;
+            color: white; /* Mengubah warna teks menjadi putih */
+        }
+
+        .footer {
+            background-color: rgba(52, 58, 64, 0.9); /* Semi-transparan */
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+            margin-top: 2em;
+        }
+
+        /* Tambahan padding untuk konten agar tidak terlalu menempel ke tepi layar */
+        .container {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-danger" style="background-color: red;">
+    <a class="navbar-brand" href="index.html" style="color: white;">Taku.me</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="background-color: white;"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="anim.html" style="color: white;">Anime</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="manga.html" style="color: white;">Manga</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="movie.html" style="color: white;">Movie</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<section id="movie" class="container">
+    <h2 class="section-title">Movie</h2>
+    <div class="row" id="anime-list"></div>
+</section>
+
+<footer class="footer">
+    <p>&copy; 2024 Info Anime. All Rights Reserved.</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    const animeData = [
+        { title: "Jujutsu Kaisen zero", description: "Cerita lanjutan dari perjuangan melawan kutukan.", img: "images/jujutsuzero.jpeg" },
+        { title: "Demon Slayer Swordsmith Village Arc", description: "film ini melanjutkan kisah Tanjiro dan teman-temannya dalam petualangan mereka melawan iblis.", img: "images/demonslayer.jpeg" },
+        { title: "The First Slam Dunk", description: "mengisahkan kisah tim basket di Jepang dengan alur yang menyentuh dan penuh semangat.", img: "images/slamdunk.jpeg" },
+        { title: "Spy x Family Code White", description: "Kisah seorang mata-mata yang membentuk keluarga palsu.", img: "images/codewhite.jpeg" },
+        { title: "Haikyuu the Dumpster Battle", description: "Cerita berfokus pada pertandingan resmi pertama antara tim voli SMA Karasuno dan SMA Nekoma di putaran ketiga Turnamen Musim Semi Nasional.", img: "images/haikyuu.jpeg" },
+        { title: "Suzume", description: "Suzume menghadapi luka masa lalunya dan belajar untuk berdamai dengan kehilangan.", img: "images/suzume.jpeg" },
+        { title: "Summer Ghost", description: "Summer Ghost mengisahkan tentang tiga remaja—Tomoya, Aoi, dan Ryo—yang bertemu melalui sebuah legenda urban mengenai (Hantu Musim)", img: "images/summerghost.jpeg" },
+        { title: "Blue Lock Episode Nagi", description: "Kehidupan Nagi yang monoton berubah ketika ia bertemu dengan Reo Mikage, teman sekelasnya yang kaya raya dan bercita-cita menjadi pemain sepak bola terbaik di dunia.", img: "images/episodenagi.jpeg" },
+        { title: "Chainsaw Man Reze Arc", description: "Denji, protagonis utama yang kini bekerja sebagai Devil Hunter, bertemu dengan Reze, seorang gadis menawan, di sebuah kafe saat mereka berteduh dari hujan.", img: "images/rezearc.jpeg" },
+        { title: "Demon Slayer Hashira Training", description: "Korps Pembasmi Iblis menyadari bahwa Muzan Kibutsuji merencanakan sesuatu yang besar, terutama terkait dengan Nezuko.", img: "images/hashiratraining.jpeg" },
+        { title: "One Peace Red", description: "Uta memiliki impian untuk mengguncang dunia dengan suara indahnya dan berharap bisa membawa perdamaian, jauh dari segala konflik yang terjadi di dunia bajak laut.", img: "images/red.jpeg" },
+        { title: "One Peace Z", description: "Z adalah seorang mantan perwira tinggi di Angkatan Laut yang dulunya berjuang untuk keadilan, tetapi mengalami tragedi yang mengubah pandangannya tentang dunia.", img: "images/z.jpeg" },
+    ];
+
+    function displayData(data, elementId) {
+        const container = $(`#${elementId}`);
+        data.forEach(item => {
+            const card = `
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="${item.img}" class="card-img-top" alt="${item.title}">
+                        <div class="card-body">
+                            <h5 class="card-title">${item.title}</h5>
+                            <p class="card-text">${item.description}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.append(card);
+        });
+    }
+
+    $(document).ready(() => {
+        displayData(animeData, 'anime-list');
+    });
+</script>
+
+</body>
+</html>

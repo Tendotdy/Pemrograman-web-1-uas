@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taku.me</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* CSS untuk background seluruh halaman */
+        body {
+            background-image: url('images/sona.jpg'); /* Pastikan 'sona.jpg' berada di direktori yang benar */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }  
+
+        /* Styling untuk kartu */
+        .card {
+            background-color: rgba(255, 255, 255, 0.9); /* Latar belakang semi-transparan putih */
+            transition: background-color 0.3s ease; /* Transisi untuk efek hover */
+        }
+
+        /* Styling untuk bagian keterangan (card-body) */
+        .card-body {
+            background-color: #000; /* Latar belakang hitam untuk keterangan */
+            color: #fff; /* Warna teks putih */
+        }
+
+        /* Efek hover untuk kartu */
+        .card:hover {
+            background-color: red; /* Ubah latar belakang menjadi merah saat hover */
+            color: #fff; /* Tetap putih untuk teks saat hover */
+        }
+
+        /* Ubah warna judul anime menjadi merah */
+        .card-title {
+            color: red; /* Warna teks merah */
+        }
+
+        /* Ubah warna teks section-title menjadi putih */
+        .section-title {
+            text-align: center;
+            margin-top: 2em;
+            color: white; /* Mengubah warna teks menjadi putih */
+        }
+
+        .footer {
+            background-color: rgba(52, 58, 64, 0.9); /* Semi-transparan */
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+            margin-top: 2em;
+        }
+
+        /* Tambahan padding untuk konten agar tidak terlalu menempel ke tepi layar */
+        .container {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-danger" style="background-color: red;">
+    <a class="navbar-brand" href="index.html" style="color: white;">Taku.me</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="background-color: white;"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="anim.html" style="color: white;">Anime</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="manga.html" style="color: white;">Manga</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="movie.html" style="color: white;">Movie</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<section id="anime" class="container">
+    <h2 class="section-title">ANIME</h2>
+    <div class="row" id="anime-list"></div>
+</section>
+
+<footer class="footer">
+    <p>&copy; 2024 Info Anime. All Rights Reserved.</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    const animeData = [
+        { title: "Jujutsu Kaisen Season 2", description: "Cerita lanjutan dari perjuangan melawan kutukan (28 Desember 2023.).", img: "images/jujutsukaisen.jpeg" },
+        { title: "Chainsaw Man", description: "Seorang pria muda dengan kekuatan gergaji mesin (22 Desember 2022.).", img: "images/chainsawman.jpeg" },
+        { title: "Bleach: Thousand-Year Blood War", description: "Perang besar antara Shinigami dan Quincy (28 Desember 2024).", img: "images/conflictbloods.jpeg" },
+        { title: "Spy x Family", description: "Kisah seorang mata-mata yang membentuk keluarga palsu (23 Desember 2023).", img: "images/spyxfamily.jpeg" },
+        { title: "Blue Lock", description: "Kompetisi sepak bola untuk mencari striker terbaik Jepang (21 Desember 2024).", img: "images/bluelock.jpeg" },
+        { title: "Attack on Titan: Final Season", description: "Bagian terakhir dari kisah Eren dan teman-temannya (8 November 2024).", img: "images/attackontitan.jpeg" },
+        { title: "My Hero Academia Season 6", description: "Pahlawan melawan Villain dalam pertarungan epik (12 Oktober 2024).", img: "images/bokunohero.jpeg" },
+        { title: "Demon Slayer: Entertainment District Arc", description: "Perjalanan Tanjiro dan kawan-kawan ke distrik hiburan ( 13 Februari 2022).", img: "images/kimetsunoyaiba.jpeg" },
+        { title: "Tokyo Revengers: Christmas Showdown", description: "Takemichi kembali ke masa lalu untuk menyelamatkan temannya (2 April 2023).", img: "images/tokyorevengers.jpeg" },
+        { title: "Dr. Stone: New World", description: "Senku dan timnya menjelajahi dunia baru yang penuh misteri (15 Juni 2023).", img: "images/newworld.jpeg" },
+        { title: "Yosuga No Sora", description: "Yosuga no Sora adalah anime dengan genre drama, romansa, dan sedikit unsur psikologis yang berfokus pada hubungan kompleks (20 Desember 2010).", img: "images/yosuga.jpeg" },
+        { title: "High School DxD", description: "High School DxD adalah anime bergenre aksi, komedi, romansa, mengisahkan seorang remaja yang pada awalnya adalah siswa biasa (2 Mei 2024).", img: "images/highschool.jpg" },
+    ];
+
+    function displayData(data, elementId) {
+        const container = $(`#${elementId}`);
+        data.forEach(item => {
+            const card = `
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="${item.img}" class="card-img-top" alt="${item.title}">
+                        <div class="card-body">
+                            <h5 class="card-title">${item.title}</h5>
+                            <p class="card-text">${item.description}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.append(card);
+        });
+    }
+
+    $(document).ready(() => {
+        displayData(animeData, 'anime-list');
+    });
+</script>
+
+</body>
+</html>
